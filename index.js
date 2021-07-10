@@ -57,8 +57,8 @@ app.post('/api/notes', (request, response, next) => {
   })
 
   note.save().then(savedNote => savedNote.toJSON()).then(savedAndFormattedNote =>
-      response.json(savedAndFormattedNote)
-    )
+    response.json(savedAndFormattedNote)
+  )
     .catch(error => next(error))
 })
 
@@ -72,14 +72,14 @@ app.get('/api/notes/:id', (request, response, next) => {
       }
     })
     .catch(error => {
-      console.log("WAT IS THIS")
+      console.log('WAT IS THIS')
       next(error)
     })
 })
 
 app.delete('/api/notes/:id', (request, response, next) => {
   Note.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -94,8 +94,8 @@ app.put('/api/notes/:id', (request, response, next) => {
   }
 
   Note.findByIdAndUpdate(request.params.id, note, {
-      new: true
-    })
+    new: true
+  })
     .then(updatedNote => {
       response.json(updatedNote)
     })
@@ -112,6 +112,7 @@ app.use(unknownEndpoint)
 
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
